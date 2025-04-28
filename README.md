@@ -7,7 +7,7 @@
 #### Year of Origin:   2025 (original publication)
 #### Year of Version:  2025
 #### Digital Object Identifier (DOI):TBD
-#### USGS Information Product Data System (IPDS) no.: TBD
+#### USGS Information Product Data System (IPDS) no.: IP-178667
 
 ***
 

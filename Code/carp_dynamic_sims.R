@@ -11,6 +11,7 @@ summary(post_param)
 
 #combine chains and get the mean and variance-covariance matrix of parameters
 post_param_all<-do.call("rbind",post_param)
+#set parameters of multivariate normal distribution as first five columns of parameters
 MU<-apply(post_param_all[,-6],2,mean)
 SIGMA<-cov(post_param_all[,-6])
 
@@ -27,9 +28,9 @@ rand_param_high[,"b[1]"]<-rand_param_high[,"b[1]"]+0.1*rand_param_high[,"b[1]"]
 
 #create a closure function to build a model that can be iterated given parameter values
 f<-function(par)function(x)c(b=par[1]*x[1]*exp(par[2]*x[1]+par[3]*x[2]),s=par[4]*x[2]*exp(par[5]*x[2]))
-#as a test, create a function d from closure f with the first row of simulated parameters
+#as a test, create a function d() from closure f() with the first row of simulated parameters
 d<-f(rand_param[1,])
-#give d some initial conditions and get the output 
+#give d() some initial conditions and get the output 
 d(c(.1,.1))
 
 #create a function to take a model, initial conditions and number of times to be iterated

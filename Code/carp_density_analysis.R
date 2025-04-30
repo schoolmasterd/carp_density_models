@@ -40,24 +40,24 @@ names(df_adj)
 zeta=0.01
 
 ####Silver Carp####
-#fit a log-linear Ricker model to Silver Carp as directed my M_1 and M_3
+#fit a log-linear Ricker model to Silver Carp as directed by M_1 and M_3
 summary(f_sv_m1_m3<-lm(log(sv_t1)~offset(log(sv_t0))+sv_t0,data = df_adj))
-#fit a log-linear Ricker model to Silver Carp as directed my M_2 and M_4
+#fit a log-linear Ricker model to Silver Carp as directed by M_2 and M_4
 summary(f_sv_m2_m4<-lm(log(sv_t1)~offset(log(sv_t0))+sv_t0+bh_t0,data = df_adj))
 
 ####Bighead Carp####      
-#fit a log-linear ricker model to Bighead Carp as directed my M_1 and M_2
+#fit a log-linear ricker model to Bighead Carp as directed by M_1 and M_2
 summary(f_bh_m1_m2<-lm(log(bh_t1+zeta)~offset(log(bh_t0+zeta))+bh_t0,data = df_adj))
-#fit a log-linear ricker model to Bighead Carp as directed my M_3 and M_4
+#fit a log-linear ricker model to Bighead Carp as directed by M_3 and M_4
 summary(f_bh_m3_m4<-lm(log(bh_t1+zeta)~offset(log(bh_t0+zeta))+bh_t0+sv_t0,data = df_adj))
 
 ####Model Selection####
 #best of the 4 models can be tested using two tests
 #(a) P(sv|M_2)>P(sv|M_1) AND (b) P(bh|M_3)>P(bh|M_1)
 #if if(!a&!b)->M_1; if(a~!b)->M_2; if(~a&b)->M_3; if(a&b)->M_4 
-#test of (a): this give a p-value of the null hypothesis that the simpler model no different
+#test of (a): this gives a p-value of the null hypothesis that the simpler model is no different
 p_a<-1-pchisq(chi_a<--2*(logLik(f_sv_m1_m3)[1]-logLik(f_sv_m2_m4)[1]),1)
-#test of (b): this give a p-value of the null hypothesis that the simpler model is no different
+#test of (b): this gives a p-value of the null hypothesis that the simpler model is no different
 p_b<-1-pchisq(chi_b<--2*(logLik(f_bh_m1_m2)[1]-logLik(f_bh_m3_m4)[1]),1)
 #results give Wilkes Theorem and alpha=0.05
 p_a<=0.05
@@ -74,7 +74,6 @@ M_4_D<--2*(logLik(f_bh_m3_m4)[1]+logLik(f_sv_m2_m4)[1])
 1-pchisq(M_1_D-M_4_D,2)
 anova(f_sv_m1_m3,f_sv_m2_m4,test="Chisq")
 
-#this result suggest that the final models are 
 #calculate rho (i.e., residual correlation)
 cor.test(exp(resid(f_bh_m3_m4)),exp(resid(f_sv_m1_m3)))
 cor.test((resid(f_bh_m3_m4)),(resid(f_sv_m1_m3)))
@@ -94,7 +93,6 @@ mod<-"
       lbh_t1~1*lbh_t0+bh_t0
       lsv_t1~~lbh_t1
       sv_t0~~bh_t0
-      
       "
 dat<-data.frame(lsv_t1=log(df_adj$sv_t1),lsv_t0=log(df_adj$sv_t0),sv_t0=df_adj$sv_t0,sv_t1=df_adj$sv_t1,
                 bh_t1=df_adj$bh_t1,
@@ -348,15 +346,14 @@ pdf("Output/Fig6.pdf",height = 5,width = 10)
     polygon(c(1:101,rev(1:101)),c(bhlw_dyn[,1],rev(bhlw_dyn[,3])),col=adjustcolor("lightblue",alpha.f=0.5),lwd=.5,lty=2)
     lines(1:101,bhlw_dyn[,2],lwd=2,lty=2,ylim=c(0,.5),type="l")
     lines(1:101,svlw_dyn[,2],lwd=2,lty=1,ylim=c(0,.5),type="l")
-    #legend("topleft",legend = c("Silver Carp","Bighead Carp"),lwd=2,lty=c(1,2),bty='n')
     mtext("(b)",side = 3,adj=-0.3)
+    
   #add plot (c) increased Silver carp growth rate
   plot(1:101,svhg_dyn[,2],lwd=2,ylim=c(0,.25),type="l",ylab="",xlab='Time',bty="l",main="Increased SC Growth Rate (B)",cex.lab=1.25,cex.axis=1.25)
     polygon(c(1:101,rev(1:101)),c(svhg_dyn[,1],rev(svhg_dyn[,3])),col=adjustcolor("grey",alpha.f=0.5),lwd=.5,lty=1 )
     polygon(c(1:101,rev(1:101)),c(bhhg_dyn[,1],rev(bhhg_dyn[,3])),col=adjustcolor("lightblue",alpha.f=0.5),lwd=.5,lty=2)
     lines(1:101,bhhg_dyn[,2],lwd=2,lty=2,ylim=c(0,.5),type="l")
     lines(1:101,svhg_dyn[,2],lwd=2,lty=1,ylim=c(0,.5),type="l")
-    #legend("topleft",legend = c("Silver Carp","Bighead Carp"),lwd=2,lty=c(1,2),bty='n',cex = 1.25)
     mtext("(c)",side = 3,adj=-0.3)
 dev.off()
 

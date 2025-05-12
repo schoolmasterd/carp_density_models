@@ -272,14 +272,14 @@ pdf("Output/Fig4.pdf",height = 5,width = 8)
     plot(df_adj$sv_t1~exp(predict(f_sv_m1_m3)-zeta),pch=21,bg="grey",bty='l',
      main="Silver Carp",ylab="",xlab="Predicted")
     mtext(side = 2,text = bquote("Density (No./1000"~m^3~")"),padj = -2.5)
-    legend("topleft",legend = bquote(rho == .(sv_cor)),bty='n')
+    legend(x = 0,y=1.5,legend = bquote(rho == .(sv_cor)),bty='n')
     abline(0,1)
     mtext("(a)",side=3,adj=-0.2)
 #plot (b) Bighead carp   
   plot(df_adj$bh_t1~exp(predict(f_bh_m3_m4)-zeta),pch=21,bg="grey",bty='l',
      main="Bighead Carp",xlab="Predicted",ylab="")
     abline(0,1)
-    legend("topleft",legend = bquote(rho == .(bh_cor)),bty='n')
+    legend(x=0,y=0.45,legend = bquote(rho == .(bh_cor)),bty='n')
     mtext("(b)",side=3,adj=-0.2)
 dev.off()
 

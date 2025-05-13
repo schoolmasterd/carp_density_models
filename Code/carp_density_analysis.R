@@ -289,7 +289,7 @@ labs=c("A",bquote(alpha[0]),bquote(alpha[1]),"B",bquote(beta[0]),bquote(rho[E[t1
 pdf("Output/Fig5.pdf")
 #regression
   plot(c(int_bh[2,2],intra_bh[2,2],inter_bh[2,2],int_sv[2,2],intra_sv[2,2],corr_et1[2,2]),seq(.8,5.8,by=1),ylab="Parameter",
-     main="",ylim=c(0,6.5),xlim=c(-7,2),pch=21,bty="l",yaxt='n',xlab="Value",cex.lab=1.25)
+     main="",ylim=c(0,6.5),xlim=c(-7,2),pch=21,bty="l",xaxt='n',yaxt='n',xlab="Value",cex.lab=1.25)
   arrows(c(int_bh[2,2],intra_bh[2,2],inter_bh[2,2],int_sv[2,2],intra_sv[2,2],corr_et1[2,2]),seq(.8,5.8,by=1),
        c(int_bh[2,1],intra_bh[2,1],inter_bh[2,1],int_sv[2,1],intra_sv[2,1],corr_et1[2,1]),seq(.8,5.8,by=1),length=0,lwd=2)
   arrows(c(int_bh[2,2],intra_bh[2,2],inter_bh[2,2],int_sv[2,2],intra_sv[2,2],corr_et1[2,2]),seq(.8,5.8,by=1),
@@ -314,6 +314,7 @@ pdf("Output/Fig5.pdf")
   points(c(int_bh[3,2],intra_bh[3,2],inter_bh[3,2],int_sv[3,2],intra_sv[3,2],corr_et1[3,2]),
        seq(1.2,6.2,by=1),pch=23,bg=c(rep("darkgrey",3),rep("darkgrey",2)))
   axis(side = 2,at = 1:6,labels =do.call(expression,labs),las=1,cex.axis=1.25)
+  axis(side = 1, at=seq(-6,2,1),seq(-6,2,1),cex.axis=1.25)
   legend("topleft",legend = c("Log-Linear Regression","SEM","Non-Linear Bayes"),pch=c(21,22,23),bty="n",pt.bg = "darkgrey")
 dev.off()
 
